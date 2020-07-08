@@ -37,7 +37,9 @@ class Promnom {
     return controlled;
   }
 
-  catch() {}
+  catch(catchFunction) {
+    return this.then(undefined, catchFunction);
+  }
 
   finally() {}
 
