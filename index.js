@@ -26,9 +26,21 @@ class Promnom {
 
   finally() {}
 
-  _onFulfilled() {}
+  _onFulfilled() {
+    if (this._state === states.PENDING) {
+      this._state = states.FULFILLED;
+      this._value = value;
+      this._propogateFulfilled();
+    }
+  }
 
-  _onRejected() {}
+  _onRejected() {
+    if (this._state === states.PENDING) {
+      this._state = states.FULFILLED;
+      this._reason = reason;
+      this._propogateRejected();
+    }
+  }
 }
 
 module.exports = Promnom;
