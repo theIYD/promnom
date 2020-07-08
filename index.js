@@ -1,5 +1,9 @@
 const states = require("./states");
 
+// Check if a promise has a then method
+const isThenable = (maybePromise) =>
+  maybePromise && typeof maybePromise.then === "function";
+
 // Global class
 class Promnom {
   constructor(compute) {
@@ -36,6 +40,25 @@ class Promnom {
   catch() {}
 
   finally() {}
+
+  _propogateFulfilled() {
+    this._thenQueue.forEach(([controlled, fulfilledFunction]) => {
+      if (typeof fulfilledFunction === "function") {
+        const valueOrProm = fulfilledFunction(this._value);
+
+        if (isThenable(valueOrProm)) {
+          valueOrProm.then(
+            (value) => controlled._onFulfilled(value),
+            (reason) => controlled._onRejected(reason)
+          );
+        } else {
+          controlled._onFulfilled(valueOrProm);
+        }
+      } else {
+        return controlled._onFulfilled(this._value);
+      }
+    });
+  }
 
   _onFulfilled() {
     if (this._state === states.PENDING) {
