@@ -1,7 +1,11 @@
 const Promnom = require("./index");
 
 const prom = new Promnom((resolve, reject) => {
-  setTimeout(() => resolve(50), 1000);
+  setTimeout(() => reject("Something went wrong"), 1000);
+  throw new Error("rejected");
+}).catch((err) => {
+  console.log(`Got Error: ${err}`);
+  return Promnom.reject("errrored again!");
 });
 
 const firstThen = prom.then((value) => {

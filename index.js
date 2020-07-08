@@ -19,7 +19,9 @@ class Promnom {
       setTimeout(() => {
         try {
           compute(this._onFulfilled.bind(this), this._onRejected.bind(this));
-        } catch (E) {}
+        } catch (E) {
+          this._onRejected(E);
+        }
       });
     }
   }
@@ -101,5 +103,8 @@ class Promnom {
     }
   }
 }
+
+Promnom.resolve = (value) => new Promnom((resolve) => resolve(value));
+Promnom.reject = (value) => new Promnom((_, reject) => reject(value));
 
 module.exports = Promnom;
