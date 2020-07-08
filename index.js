@@ -43,7 +43,20 @@ class Promnom {
     return this.then(undefined, catchFunction);
   }
 
-  finally() {}
+  finally(sideEffectFunction) {
+    if (this._state !== states.PENDING) {
+      sideEffectFunction();
+
+      return this._state === states.FULFILLED
+        ? Promnom.resolve(this._value)
+        : Promnom.reject(this._reason);
+    }
+
+    const controlled = new Promnom();
+    this._finallyQueue.push([controlled, sideEffectFunction]);
+
+    return controlled;
+  }
 
   _propogateFulfilled() {
     this._thenQueue.forEach(([controlled, fulfilledFunction]) => {
@@ -63,7 +76,13 @@ class Promnom {
       }
     });
 
+    this._finallyQueue.forEach(([controlled, sideEffectFunction]) => {
+      sideEffectFunction();
+      controlled._onFulfilled(this._value);
+    });
+
     this._thenQueue = [];
+    this._finallyQueue = [];
   }
 
   _propogateRejected() {
@@ -84,7 +103,13 @@ class Promnom {
       }
     });
 
+    this._finallyQueue.forEach(([controlled, sideEffectFunction]) => {
+      sideEffectFunction();
+      controlled._onFulfilled(this._value);
+    });
+
     this._thenQueue = [];
+    this._finallyQueue = [];
   }
 
   _onFulfilled(value) {

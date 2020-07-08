@@ -1,19 +1,37 @@
 const Promnom = require("./index");
 
-const prom = new Promnom((resolve, reject) => {
-  setTimeout(() => reject("Something went wrong"), 1000);
-  throw new Error("rejected");
-}).catch((err) => {
-  console.log(`Got Error: ${err}`);
-  return Promnom.reject("errrored again!");
-});
+const fs = require("fs");
+const path = require("path");
 
-const firstThen = prom.then((value) => {
-  console.log(`Got value: ${value}`);
-  return value + 1;
-});
+const readFile = (filename, encoding) =>
+  new Promnom((resolve, reject) => {
+    fs.readFile(filename, encoding, (err, value) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(value);
+    });
+  });
 
-const secondThen = firstThen.then((value) => {
-  console.log(`Got value: ${value}`);
-  return value + 1;
-});
+const delay = (timeInMs, value) =>
+  new Promnom((resolve) => {
+    setTimeout(() => {
+      resolve(value);
+    }, timeInMs);
+  });
+
+readFile(path.join(__dirname, "index.js"), "utf-8")
+  .then((text) => {
+    console.log(`${text.length} characters read`);
+    return delay(2000, text.replace(/[aeiou]/g, ""));
+  })
+  .then((newText) => {
+    console.log(newText.slice(0, 200));
+  })
+  .catch((err) => {
+    console.log("An error occurred");
+    console.error(err);
+  })
+  .finally(() => {
+    console.log("Promise done");
+  });
