@@ -10,6 +10,14 @@ class Promnom {
 
     this._thenQueue = [];
     this._finallyQueue = [];
+
+    if (typeof compute === "function") {
+      setTimeout(() => {
+        try {
+          compute(this._onFulfilled.bind(this), this._onRejected.bind(this));
+        } catch (E) {}
+      });
+    }
   }
 
   then() {}
