@@ -62,7 +62,28 @@ class Promnom {
     this._thenQueue = [];
   }
 
-  _onFulfilled() {
+  _propogateRejected() {
+    this._thenQueue.forEach(([controlled, _, catchFunction]) => {
+      if (typeof catchFunction === "function") {
+        const valueOrProm = catchFunction(this._reason);
+
+        if (isThenable(valueOrProm)) {
+          valueOrProm.then(
+            (value) => controlled._onFulfilled(value),
+            (reason) => controlled._onRejected(reason)
+          );
+        } else {
+          controlled._onFulfilled(valueOrProm);
+        }
+      } else {
+        return controlled._onRejected(this._reason);
+      }
+    });
+
+    this._thenQueue = [];
+  }
+
+  _onFulfilled(value) {
     if (this._state === states.PENDING) {
       this._state = states.FULFILLED;
       this._value = value;
@@ -70,7 +91,7 @@ class Promnom {
     }
   }
 
-  _onRejected() {
+  _onRejected(reason) {
     if (this._state === states.PENDING) {
       this._state = states.FULFILLED;
       this._reason = reason;
