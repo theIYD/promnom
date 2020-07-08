@@ -2,8 +2,8 @@
 
 ## promnom
 [![HitCount](http://hits.dwyl.com/theIYD/promnom.svg)](http://hits.dwyl.com/theIYD/promnom)
-[![GitHub license](https://img.shields.io/github/license/theIYD/promnom.svg)](https://github.com/theIYD/promnom/blob/master/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/theIYD/promnom.svg?style=social&label=Star&maxAge=2592000)](https://gitHub.com/theIYD/promnom/stargazers/)
+[![GitHub license](https://img.shields.io/github/license/theIYD/promnom)](https://github.com/theIYD/promnom/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/theIYD/promnom)](https://gitHub.com/theIYD/promnom/stargazers/)
 
 A custom implementation of Javascript promises from scratch. The purpose of this implementation was to deeply understand how promises allow asynchronous operations using `setTimeout()` Web API & how a data structure like queue is maintained.
 
