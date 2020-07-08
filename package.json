@@ -1,0 +1,23 @@
+{
+  "name": "promnom",
+  "version": "1.0.0",
+  "description": "A custom implementation of JavaScript promises",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theIYD/promnom.git"
+  },
+  "keywords": [
+    "promise",
+    "javascript"
+  ],
+  "author": "Idrees Dargahwala",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/theIYD/promnom/issues"
+  },
+  "homepage": "https://github.com/theIYD/promnom#readme"
+}

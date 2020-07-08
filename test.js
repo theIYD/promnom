@@ -1,0 +1,1 @@
+const Promnom = require("./index");
