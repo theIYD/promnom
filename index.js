@@ -20,7 +20,18 @@ class Promnom {
     }
   }
 
-  then() {}
+  then(fulfilledFunction, catchFunction) {
+    const controlled = new Promnom();
+    this._thenQueue.push([controlled, fulfilledFunction, catchFunction]);
+
+    if (this._state === states.FULFILLED) {
+      this._propogateFulfilled();
+    } else if (this._state === states.REJECTED) {
+      this._propogateRejected();
+    }
+
+    return controlled;
+  }
 
   catch() {}
 
