@@ -58,6 +58,8 @@ class Promnom {
         return controlled._onFulfilled(this._value);
       }
     });
+
+    this._thenQueue = [];
   }
 
   _onFulfilled() {
