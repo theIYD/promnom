@@ -4,7 +4,7 @@
   "description": "A custom implementation of JavaScript promises",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/index.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/theIYD/promnom/issues"
   },
-  "homepage": "https://github.com/theIYD/promnom#readme"
+  "homepage": "https://github.com/theIYD/promnom#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^8.0.1"
+  }
 }
