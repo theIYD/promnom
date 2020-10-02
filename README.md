@@ -5,7 +5,7 @@
 [![GitHub license](https://img.shields.io/github/license/theIYD/promnom)](https://github.com/theIYD/promnom/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/theIYD/promnom)](https://gitHub.com/theIYD/promnom/stargazers/)
 
-A custom implementation of Javascript promises from scratch. The purpose of this implementation was to deeply understand how promises allow asynchronous operations using `setTimeout()` Web API & how a data structure like queue is maintained.
+A custom implementation of Javascript promises from scratch. The purpose of this implementation was to deeply understand how promises allow asynchronous operations using `setTimeout()` Web API & how a data structure like a queue is maintained.
 
 ### Background
 A promise represents the eventual result of an asynchronous operation. The primary way of interacting with a promise is through its `then` method, which registers callbacks to receive either a promise’s eventual value or the reason why the promise cannot be fulfilled.
